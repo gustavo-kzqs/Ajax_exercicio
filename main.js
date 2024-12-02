@@ -1,35 +1,37 @@
-$(document).ready(function(){
-    const endpoint = "https://api.github.com/users/gustavo-kzqs";
-    const elementName = document.querySelector('#name');
-    const userName = document.querySelector('#user');
-    const avatarName = document.querySelector('#avatar');
-    const reposElement = document.querySelector('#repos');
-    const followersElement = document.querySelector('#followers');
-    const followingElement = document.querySelector('#following');
-    const linkElement = document.querySelector('#link');
+document.addEventListener('DOMContentLoaded',function() {
+    const nameElement = document.querySelector("#name");
+    const userName = document.querySelector("#user");
+    const avatarName = document.querySelector("#avatar");
+    const reposElement = document.querySelector("#repos");
+    const followersElement = document.querySelector("#followers");
+    const followingElement = document.querySelector("#following");
+    const linkElement = document.querySelector("#link");
 
-        $.ajax(endpoint).done(function(resposta){
-            console.log(resposta)
-            elementName.innerText = resposta.name
-            userName.innerText = `${resposta.login}`
-            avatarName.src = resposta.avatar_url
-            reposElement.innerText = resposta.public_repos
-            followersElement.innerText = resposta.followers
-            followingElement.innerText = resposta.following
-            linkElement.href = resposta.html_url
-
+        fetch('https://api.github.com/users/gustavo-kzqs')
+        .then(function(res){
+            return res.json();
         })
+        .then(function(json){
+            nameElement.innerText = json.name;
+            userName.innerText = json.login;
+            avatarName.src = json.avatar_url;
+            followersElement.innerText = json.followers;
+            followingElement.innerText = json.following;
+            reposElement.innerText = json.public_repos;
+            linkElement.href = json.html_url;
+        }) 
+         .catch(function(erro){
+             alert("Ocorreu um erro, tente novamente.");
+         })
 
-        // fetch('https://api.github.com/users/gustavo-kzqs')
-        //         .then(function(resposta){
-        //                 return resposta.json();
-        //         })
-        //         .then(function(json){
-        //             elementName.innerText = json.name;
-        //             userName.innerText = json.login;
-        //             avatarName.src = json.avatar_url;
-        //             followingElement.innerText = json.following;
-        //             followersElement.innerText = json.followers;
-        //             reposElement.innerText = json.public_repos;
-        //             linkElement.href = json.html_url;
-                })
+    
+    })
+
+//     fetch('https://api.github.com/users/MartinsDev23')
+//   .then(function(json){
+//     atribui os valores as vairaveis criadas acima
+//   })
+//   .catch(function(erro) {
+//     mostra o erro
+//   })
+                
